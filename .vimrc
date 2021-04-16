@@ -1,12 +1,30 @@
+"---------------------------------------------------------- 
+" 插件管理
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'fatih/vim-go'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'sjl/gundo.vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'majutsushi/tagbar'
+call vundle#end()
+
+
+"----------------------------------------------------------
+" vim配置 
 " 定义快捷键的前缀，即 <Leader>
 let mapleader=","
 " 开启文件类型侦测
 filetype on
 " 根据侦测到的不同类型加载对应的插件
-filetype plugin on
-" 定义快捷键到行首和行尾
-nmap LB 0
-nmap LE $
+filetype plugin indent on
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至vim
@@ -31,8 +49,6 @@ nnoremap <Leader>kw <C-W>k
 nnoremap <Leader>jw <C-W>j
 " 定义快捷键在结对符之间跳转
 nmap <Leader>M %
-" 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
@@ -55,8 +71,6 @@ set nowrap
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
-" 自适应不同语言的智能缩进
-filetype indent on
 " 将制表符扩展为空格
 set expandtab
 " 设置编辑时制表符占用空格数
@@ -84,29 +98,13 @@ set termguicolors
 set background=dark
 colorscheme solarized8_flat
 
-"---------------------------------------------- 
-" 插件管理
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'fatih/vim-go'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'sjl/gundo.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'majutsushi/tagbar'
-call vundle#end()
 
 "----------------------------------------------------------
 " UltiSnips 的 tab 键与 YCM 冲突，重新设定
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
 " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
@@ -123,6 +121,9 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_cache_omnifunc=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
+" ctrl+z 语义补全
+let g:ycm_key_invoke_completion = '<c-z>'
+
 
 "----------------------------------------------------------
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
@@ -131,6 +132,7 @@ nmap <Leader>fl :NERDTreeToggle<CR>
 let NERDTreeWinSize=22
 " 设置 NERDTree 子窗口位置
 let NERDTreeWinPos="left"
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 " 显示隐藏文件
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
@@ -150,22 +152,26 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
-
-let g:NERDTreeShowIgnoredStatus = 1
+" 文件图标
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeIgnore = ['\.swap']
 
 "----------------------------------------------------------
-" 保存 undo 历史。必须先行创建 .undo_history/
+" 设置环境保存项
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+" 保存 undo 历史
 set undodir=~/.undo_history/
 set undofile
-" 适用于哪些结对符
-let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
+" 保存快捷键
+map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+" 恢复快捷键
+map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 " 调用 gundo 树
 nnoremap <Leader>ud :GundoToggle<CR>
 
+
 "---------------------------------------------------------
+" vim-go 配置
 let g:go_fmt_command = "goimports" 
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
@@ -185,7 +191,9 @@ nnoremap <leader>a :cclose<CR>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
+
 " ---------------------------------------------------------
+" tag bar 配置
 nmap <Leader>tl :TagbarToggle<CR>
 let g:tagbar_width = 22
 let g:tagbar_type_go = {
@@ -216,12 +224,3 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" ----------------------------------------------------------
-" 注释对齐
-let g:NERDDefaultAlign = 'left'
-
-" 注释空格
-let g:NERDSpaceDelims = 1
-
-" 美化多行注释
-let NERDCompactSexyComs=1
