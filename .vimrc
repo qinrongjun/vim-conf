@@ -1,4 +1,4 @@
-"---------------------------------------------------------- 
+" ---------------------------------------------------------- 
 " 插件管理
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -16,8 +16,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 call vundle#end()
 
-
-"----------------------------------------------------------
+" ----------------------------------------------------------
 " vim配置 
 " 定义快捷键的前缀，即 <Leader>
 let mapleader=","
@@ -25,30 +24,6 @@ let mapleader=","
 filetype on
 " 根据侦测到的不同类型加载对应的插件
 filetype plugin indent on
-" 设置快捷键将选中文本块复制至系统剪贴板
-vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至vim
-nmap <Leader>p "+p
-" 定义快捷键关闭当前分割窗口
-nmap <Leader>q :q<CR>
-" 定义快捷键保存当前窗口内容
-nmap <Leader>w :w<CR>
-" 定义快捷键保存所有窗口内容并退出 vim
-nmap <Leader>WQ :wa<CR>:q<CR>
-" 不做任何保存，直接退出 vim
-nmap <Leader>Q :qa!<CR>
-" 依次遍历
-nnoremap nw <C-W><C-W>
-" 跳转至右方的窗口
-nnoremap <Leader>lw <C-W>l
-" 跳转至左方的窗口
-nnoremap <Leader>hw <C-W>h
-" 跳转至上方的子窗口
-nnoremap <Leader>kw <C-W>k
-" 跳转至下方的子窗口
-nnoremap <Leader>jw <C-W>j
-" 定义快捷键在结对符之间跳转
-nmap <Leader>M %
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
@@ -99,13 +74,37 @@ set background=dark
 colorscheme solarized8_flat
 " 高亮当前行
 set cursorline
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至vim
+nmap <Leader>p "+p
+" 定义快捷键关闭当前分割窗口
+nmap <Leader>q :q<CR>
+" 定义快捷键保存当前窗口内容
+nmap <Leader>w :w<CR>
+" 定义快捷键保存所有窗口内容并退出 vim
+nmap <Leader>WQ :wa<CR>:q<CR>
+" 不做任何保存，直接退出 vim
+nmap <Leader>Q :qa!<CR>
+" 依次遍历
+nnoremap nw <C-W><C-W>
+" 跳转至右方的窗口
+nnoremap <Leader>lw <C-W>l
+" 跳转至左方的窗口
+nnoremap <Leader>hw <C-W>h
+" 跳转至上方的子窗口
+nnoremap <Leader>kw <C-W>k
+" 跳转至下方的子窗口
+nnoremap <Leader>jw <C-W>j
+" 定义快捷键在结对符之间跳转
+nmap <Leader>M %
 
 
 "----------------------------------------------------------
 " UltiSnips 的 tab 键与 YCM 冲突，重新设定
 let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<leader>f"
+let g:UltiSnipsJumpBackwardTrigger="<leader>b"
 
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
@@ -124,7 +123,7 @@ let g:ycm_cache_omnifunc=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " ctrl+z 语义补全
-let g:ycm_key_invoke_completion = '<c-z>'
+let g:ycm_key_invoke_completion = '<leader>z'
 
 
 "----------------------------------------------------------
@@ -204,7 +203,8 @@ map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go let g:UltiSnipsEnableSnipMate = 0
+let g:go_snippet_engine = ""
+"autocmd FileType go let g:UltiSnipsEnableSnipMate = 0
 
 
 " ---------------------------------------------------------
