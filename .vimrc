@@ -14,6 +14,7 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-surround'
 call vundle#end()
 
 " ----------------------------------------------------------
