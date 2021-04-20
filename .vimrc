@@ -203,8 +203,7 @@ map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
-let g:go_snippet_engine = ""
-"autocmd FileType go let g:UltiSnipsEnableSnipMate = 0
+autocmd FileType go let g:UltiSnipsEnableSnipMate = 0
 
 
 " ---------------------------------------------------------
