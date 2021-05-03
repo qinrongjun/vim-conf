@@ -104,8 +104,8 @@ nmap <Leader>M %
 "----------------------------------------------------------
 " UltiSnips 的 tab 键与 YCM 冲突，重新设定
 let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader>f"
-let g:UltiSnipsJumpBackwardTrigger="<leader>b"
+let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
 
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
@@ -125,7 +125,8 @@ let g:ycm_cache_omnifunc=0
 let g:ycm_seed_identifiers_with_syntax=1
 " ctrl+z 语义补全
 let g:ycm_key_invoke_completion = '<leader>z'
-
+" 设置clangd
+let g:ycm_clangd_binary_path='clangd'
 
 "----------------------------------------------------------
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
