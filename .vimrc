@@ -15,6 +15,8 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-surround'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
 call vundle#end()
 
 " ----------------------------------------------------------
@@ -75,6 +77,8 @@ set background=dark
 colorscheme solarized8_flat
 " 高亮当前行
 set cursorline
+" 设置删除键
+set backspace=indent,eol,start
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至vim
@@ -123,7 +127,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_cache_omnifunc=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-" ctrl+z 语义补全
+" leader+z 语义补全
 let g:ycm_key_invoke_completion = '<leader>z'
 " 设置clangd
 let g:ycm_clangd_binary_path='clangd'
@@ -138,7 +142,7 @@ let NERDTreeWinSize=32
 " 设置 NERDTree 子窗口位置
 let NERDTreeWinPos="left"
 " 忽略文件
-let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '.DS_Store', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '.idea']
 " 显示隐藏文件
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
@@ -171,19 +175,23 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 
 
-"----------------------------------------------------------
+" ----------------------------------------------------------
 " 设置环境保存项
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 " 保存 undo 历史
 set undodir=~/.undo_history/
 set undofile
+if has('python3')
+    let g:gundo_prefer_python3 = 1
+endif
+
+" ---------------------------------------------------------
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 " 保存快捷键
 map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
 " 恢复快捷键
 map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 " 调用 gundo 树
 nnoremap <Leader>ud :GundoToggle<CR>
-
 
 "---------------------------------------------------------
 " vim-go 配置
@@ -244,3 +252,14 @@ let g:tagbar_type_go = {
 " ---------------------------------------------------------
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
+
+
+" --------------------------------------------------------
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" --------------------------------------------------------
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_extensions = ['funky']
