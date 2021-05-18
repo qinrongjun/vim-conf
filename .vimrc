@@ -77,8 +77,6 @@ set background=dark
 colorscheme solarized8_flat
 " 高亮当前行
 set cursorline
-" 设置删除键
-set backspace=indent,eol,start
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至vim
