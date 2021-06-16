@@ -92,16 +92,13 @@ nmap <Leader>Q :qa!<CR>
 " 依次遍历
 nnoremap nw <C-W><C-W>
 " 跳转至左方的窗口
-nnoremap <Leader>lw <C-W>h
+nnoremap <Leader>hw <C-W>h
 " 跳转至右方的窗口
-nnoremap <Leader>rw <C-W>l
+nnoremap <Leader>lw <C-W>l
 " 跳转至上方的子窗口
-nnoremap <Leader>tw <C-W>k
+nnoremap <Leader>kw <C-W>k
 " 跳转至下方的子窗口
-nnoremap <Leader>bw <C-W>j
-" 定义快捷键在结对符之间跳转
-nmap <Leader>M %
-
+nnoremap <Leader>jw <C-W>j
 
 "----------------------------------------------------------
 " UltiSnips 的 tab 键与 YCM 冲突，重新设定
@@ -164,6 +161,7 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " Start NERDTree when Vim starts with a directory argument.
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
@@ -218,6 +216,7 @@ autocmd FileType go let g:UltiSnipsEnableSnipMate = 0
 " tag bar 配置
 nmap <Leader>tl :TagbarToggle<CR>
 let g:tagbar_width = 32
+" go
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -246,7 +245,39 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
-
+" c
+let g:tagbar_type_c = {
+            \ 'ctagstype' : 'c',
+            \ 'kinds'     : [
+                \ 'd:macros:1:0',
+                \ 'p:prototypes:1:0',
+                \ 'g:enums',
+                \ 'e:enumerators:0:0',
+                \ 't:typedefs:0:0',
+                \ 'n:namespaces',
+                \ 'c:classes',
+                \ 's:structs',
+                \ 'u:unions',
+                \ 'f:functions',
+                \ 'm:members:0:0',
+                \ 'v:variables:0:0'
+            \ ],
+            \ 'sro'        : '::',
+            \ 'kind2scope' : {
+                \ 'g' : 'enum',
+                \ 'n' : 'namespace',
+                \ 'c' : 'class',
+                \ 's' : 'struct',
+                \ 'u' : 'union'
+            \ },
+            \ 'scope2kind' : {
+                \ 'enum'      : 'g',
+                \ 'namespace' : 'n',
+                \ 'class'     : 'c',
+                \ 'struct'    : 's',
+                \ 'union'     : 'u'
+            \ }
+        \ }
 " ---------------------------------------------------------
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -257,7 +288,7 @@ let g:ctrlp_map = '<leader>ff'
 let g:ctrlp_cmd = 'CtrlP'
 
 " --------------------------------------------------------
-nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>fc :CtrlPFunky<Cr>
 nnoremap <Leader>uu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
